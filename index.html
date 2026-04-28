@@ -49,10 +49,10 @@
             border-color: white;
         }
 
-        /* --- NUEVO: CARRUSEL DE ENCABEZADO --- */
+        /* CARRUSEL DE ENCABEZADO */
         .carousel-container {
             position: relative;
-            height: 400px; /* Altura del carrusel */
+            height: 400px;
             width: 100%;
             overflow: hidden;
             border-radius: 0 0 30px 30px;
@@ -69,12 +69,11 @@
             background-size: cover;
             background-position: center;
             opacity: 0;
-            transition: opacity 0.8s ease-in-out; /* Efecto suave al cambiar */
+            transition: opacity 0.8s ease-in-out;
             display: flex;
             align-items: center;
             padding: 0 50px;
-            /* Agregamos un fondo oscuro transparente para que las letras blancas resalten siempre */
-            box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.4);
+            box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.4); /* Filtro oscuro */
         }
 
         .carousel-slide.active {
@@ -90,7 +89,6 @@
             line-height: 1.2;
         }
 
-        /* Botones del carrusel */
         .carousel-btn {
             position: absolute;
             top: 50%;
@@ -177,6 +175,7 @@
             color: #666;
             margin-bottom: 10px;
             text-align: left;
+            height: 40px; /* Mantiene los títulos alineados */
         }
         .price {
             font-size: 24px;
@@ -191,6 +190,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 8px; /* Espacio entre el texto y el logo */
             background-color: #1a1a1a;
             color: white;
             text-decoration: none;
@@ -202,8 +202,15 @@
             transition: background-color 0.3s;
         }
         .btn-whatsapp:hover {
-            background-color: #25D366;
+            background-color: #25D366; /* Verde WhatsApp */
         }
+        /* Icono SVG de WhatsApp */
+        .btn-whatsapp svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+        
         .btn-info {
             background: none;
             border: none;
@@ -271,6 +278,7 @@
                 <button class="active" data-filter="todos">Todos</button>
                 <button data-filter="huipiles">Huipiles</button>
                 <button data-filter="blusas">Blusas</button>
+                <button data-filter="vestidos">Vestidos</button>
                 <button data-filter="rebozos">Rebozos</button>
             </div>
         </section>
@@ -281,30 +289,77 @@
                 <img src="https://images.unsplash.com/photo-1551804938-2a243d7890bc?auto=format&fit=crop&w=300&q=80" alt="Blusa Artesanal">
                 <h3 class="product-title">Blusa Bordada a Mano - Floral</h3>
                 <p class="price"><small>MXN</small> $550.00</p>
-                <a href="https://wa.me/6331209203?text=Hola,%20me%20interesa%20comprar%20la%20Blusa%20Bordada%20a%20Mano%20Floral%20de%20$550" class="btn-whatsapp" target="_blank">
-                    COMPRAR POR 💬
+                <a href="https://wa.me/6331209203?text=Hola,%20me%20interesa%20la%20Blusa%20Floral%20de%20$550" class="btn-whatsapp" target="_blank">
+                    COMPRAR POR 
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
                 </a>
-                <button class="btn-info" onclick="mostrarInfo('Blusa Bordada a Mano', 'Hermosa blusa elaborada en manta 100% algodón, con bordados florales hechos a mano por artesanas locales. Talla Unitalla.')">MÁS INFORMACIÓN</button>
+                <button class="btn-info" onclick="mostrarInfo('Blusa Bordada a Mano', 'Hermosa blusa elaborada en manta 100% algodón, con bordados florales. Talla Unitalla.')">MÁS INFORMACIÓN</button>
+            </div>
+
+            <div class="card" data-category="huipiles">
+                <img src="https://images.unsplash.com/photo-1605763240000-7e93b172d754?auto=format&fit=crop&w=300&q=80" alt="Huipil de Gala">
+                <h3 class="product-title">Huipil de Gala Oaxaqueño</h3>
+                <p class="price"><small>MXN</small> $2,500.00</p>
+                <a href="https://wa.me/6331209203?text=Hola,%20me%20interesa%20el%20Huipil%20de%20Gala%20de%20$2500" class="btn-whatsapp" target="_blank">
+                    COMPRAR POR 
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
+                </a>
+                <button class="btn-info" onclick="mostrarInfo('Huipil de Gala', 'Pieza única elaborada en telar de cintura con hilos de seda. Diseño tradicional para eventos especiales.')">MÁS INFORMACIÓN</button>
             </div>
 
             <div class="card" data-category="rebozos">
                 <img src="https://images.unsplash.com/photo-1604085572504-a392ddf0d86a?auto=format&fit=crop&w=300&q=80" alt="Rebozo">
                 <h3 class="product-title">Rebozo de Telar Tradicional</h3>
                 <p class="price"><small>MXN</small> $850.00</p>
-                <a href="https://wa.me/6331209203?text=Hola,%20me%20interesa%20el%20Rebozo%20de%20Telar%20de%20$850" class="btn-whatsapp" target="_blank">
-                    COMPRAR POR 💬
+                <a href="https://wa.me/6331209203?text=Hola,%20me%20interesa%20el%20Rebozo%20Tradicional%20de%20$850" class="btn-whatsapp" target="_blank">
+                    COMPRAR POR 
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
                 </a>
-                <button class="btn-info" onclick="mostrarInfo('Rebozo de Telar', 'Rebozo elaborado en telar de cintura. Colores firmes, hilos de algodón y seda sintética. Perfecto para eventos especiales o uso diario.')">MÁS INFORMACIÓN</button>
+                <button class="btn-info" onclick="mostrarInfo('Rebozo de Telar', 'Rebozo con colores firmes, hilos de algodón y seda sintética. Uso diario.')">MÁS INFORMACIÓN</button>
             </div>
 
-            <div class="card" data-category="huipiles">
+            <div class="card" data-category="vestidos">
                 <img src="https://images.unsplash.com/photo-1595123565011-85eab2cc4dce?auto=format&fit=crop&w=300&q=80" alt="Vestido">
-                <h3 class="product-title">Vestido Tipo Huipil Algodón</h3>
+                <h3 class="product-title">Vestido Tipo Huipil Manta</h3>
                 <p class="price"><small>MXN</small> $1,200.00</p>
-                <a href="https://wa.me/6331209203?text=Hola,%20me%20interesa%20el%20Vestido%20Típico%20de%20$1200" class="btn-whatsapp" target="_blank">
-                    COMPRAR POR 💬
+                <a href="https://wa.me/6331209203?text=Hola,%20me%20interesa%20el%20Vestido%20Tipo%20Huipil%20de%20$1200" class="btn-whatsapp" target="_blank">
+                    COMPRAR POR 
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
                 </a>
-                <button class="btn-info" onclick="mostrarInfo('Vestido Tipo Huipil', 'Vestido fresco y cómodo inspirado en el corte tradicional del huipil. Ideal para climas cálidos. Lavado a mano recomendado.')">MÁS INFORMACIÓN</button>
+                <button class="btn-info" onclick="mostrarInfo('Vestido Tipo Huipil', 'Vestido fresco y cómodo. Lavado a mano recomendado.')">MÁS INFORMACIÓN</button>
+            </div>
+
+            <div class="card" data-category="blusas">
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=300&q=80" alt="Blusa Campesina">
+                <h3 class="product-title">Blusa Campesina Detalles</h3>
+                <p class="price"><small>MXN</small> $450.00</p>
+                <a href="https://wa.me/6331209203?text=Hola,%20me%20interesa%20la%20Blusa%20Campesina%20de%20$450" class="btn-whatsapp" target="_blank">
+                    COMPRAR POR 
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
+                </a>
+                <button class="btn-info" onclick="mostrarInfo('Blusa Campesina', 'Diseño de cuello elástico, manga corta. Muy fresca e ideal para usar con jeans o faldas.')">MÁS INFORMACIÓN</button>
+            </div>
+
+            <div class="card" data-category="vestidos">
+                <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=300&q=80" alt="Vestido Bordado">
+                <h3 class="product-title">Vestido Bordado Chiapaneco</h3>
+                <p class="price"><small>MXN</small> $1,800.00</p>
+                <a href="https://wa.me/6331209203?text=Hola,%20me%20interesa%20el%20Vestido%20Chiapaneco%20de%20$1800" class="btn-whatsapp" target="_blank">
+                    COMPRAR POR 
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
+                </a>
+                <button class="btn-info" onclick="mostrarInfo('Vestido Chiapaneco', 'Vestido de manta negra con espectacular bordado en punto de cruz lleno de colores vivos.')">MÁS INFORMACIÓN</button>
+            </div>
+
+            <div class="card" data-category="rebozos">
+                <img src="https://images.unsplash.com/photo-1584949514123-474cb0c1ff06?auto=format&fit=crop&w=300&q=80" alt="Rebozo de Seda">
+                <h3 class="product-title">Rebozo Fino de Seda</h3>
+                <p class="price"><small>MXN</small> $1,100.00</p>
+                <a href="https://wa.me/6331209203?text=Hola,%20me%20interesa%20el%20Rebozo%20de%20Seda%20de%20$1100" class="btn-whatsapp" target="_blank">
+                    COMPRAR POR 
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
+                </a>
+                <button class="btn-info" onclick="mostrarInfo('Rebozo de Seda', 'Confeccionado en hilos de seda brillantes y ligeros, con empuntado fino. Especial para vestidos de noche.')">MÁS INFORMACIÓN</button>
             </div>
 
             <div id="noResults" class="no-results">
@@ -332,36 +387,29 @@
     </footer>
 
     <script>
-        // --- LÓGICA DEL CARRUSEL ---
+        // LÓGICA DEL CARRUSEL
         let slideIndex = 0;
         const slides = document.querySelectorAll(".carousel-slide");
 
         function mostrarSlide(n) {
-            // Ocultar todas
             slides.forEach(slide => slide.classList.remove("active"));
-            
-            // Ajustar el índice si nos pasamos
             if (n >= slides.length) slideIndex = 0;
             if (n < 0) slideIndex = slides.length - 1;
-            
-            // Mostrar la actual
             slides[slideIndex].classList.add("active");
         }
 
-        // Función para los botones prev/next
         function cambiarSlide(n) {
             slideIndex += n;
             mostrarSlide(slideIndex);
         }
 
-        // Cambio automático cada 5 segundos (5000 milisegundos)
         setInterval(() => {
             slideIndex++;
             mostrarSlide(slideIndex);
         }, 5000);
 
 
-        // --- LÓGICA DE PRODUCTOS (Filtros, Búsqueda, Alertas) ---
+        // LÓGICA DE PRODUCTOS
         function mostrarInfo(nombre, descripcion) {
             alert("✨ " + nombre + " ✨\n\n" + descripcion);
         }
