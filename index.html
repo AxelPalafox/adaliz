@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tu Marca - Ropa Típica</title>
+    <title>Tu Marca - Ropa Típica de Chiapas</title>
     <style>
         /* ESTILOS GENERALES */
         * {
@@ -25,12 +25,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: relative;
-            z-index: 10;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         .logo {
             font-size: 20px;
             font-weight: bold;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
         }
         .nav-links button {
             background-color: transparent;
@@ -40,26 +45,39 @@
             cursor: pointer;
             border-radius: 20px;
             margin-left: 10px;
+            transition: 0.3s;
         }
-        .nav-links button.active {
-            background-color: white;
-            color: black;
+        .nav-links button:hover {
+            background-color: rgba(255,255,255,0.1);
         }
-        .nav-links button.outline {
-            border-color: white;
+        
+        /* BOTÓN DEL CARRITO EN EL MENÚ */
+        .cart-btn {
+            background-color: white !important;
+            color: black !important;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .cart-count {
+            background-color: #ff3b30;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
         }
 
         /* CARRUSEL DE ENCABEZADO */
         .carousel-container {
             position: relative;
-            height: 400px;
+            height: 450px;
             width: 100%;
             overflow: hidden;
             border-radius: 0 0 30px 30px;
             margin-bottom: 40px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        
         .carousel-slide {
             position: absolute;
             top: 0;
@@ -73,22 +91,19 @@
             display: flex;
             align-items: center;
             padding: 0 50px;
-            box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.4); /* Filtro oscuro */
+            box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.4);
         }
-
         .carousel-slide.active {
             opacity: 1;
             z-index: 1;
         }
-
         .carousel-slide h1 {
             color: white;
             font-size: 45px;
-            max-width: 500px;
+            max-width: 600px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
             line-height: 1.2;
         }
-
         .carousel-btn {
             position: absolute;
             top: 50%;
@@ -104,13 +119,9 @@
             z-index: 2;
             transition: background-color 0.3s;
         }
-        .carousel-btn:hover {
-            background-color: rgba(255, 255, 255, 0.8);
-            color: black;
-        }
+        .carousel-btn:hover { background-color: rgba(255, 255, 255, 0.8); color: black; }
         .carousel-btn.prev { left: 20px; }
         .carousel-btn.next { right: 20px; }
-
 
         /* BUSCADOR Y CATEGORÍAS */
         .filters-section {
@@ -137,10 +148,7 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             transition: all 0.3s ease;
         }
-        .categories button.active {
-            background-color: #1a1a1a;
-            color: white;
-        }
+        .categories button.active { background-color: #1a1a1a; color: white; }
 
         /* CUADRÍCULA DE PRODUCTOS */
         .products-grid {
@@ -159,23 +167,26 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             transition: transform 0.2s;
         }
-        .card:hover {
-            transform: translateY(-5px);
-        }
+        .card:hover { transform: translateY(-5px); }
         .card img {
             width: 100%;
-            height: 250px;
-            object-fit: cover;
+            height: 300px; 
+            object-fit: cover; 
             border-radius: 10px;
             margin-bottom: 15px;
             background-color: #f0f0f0;
+            cursor: zoom-in; /* Indica que se puede hacer clic para ver más grande */
+            transition: opacity 0.3s;
+        }
+        .card img:hover {
+            opacity: 0.8;
         }
         .card h3 {
             font-size: 16px;
             color: #666;
             margin-bottom: 10px;
             text-align: left;
-            height: 40px; /* Mantiene los títulos alineados */
+            height: 40px; 
         }
         .price {
             font-size: 24px;
@@ -184,33 +195,21 @@
             text-align: right;
             margin-bottom: 15px;
         }
-
-        /* BOTONES DEL PRODUCTO */
-        .btn-whatsapp {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px; /* Espacio entre el texto y el logo */
+        .btn-add-cart {
+            display: block;
+            width: 100%;
             background-color: #1a1a1a;
             color: white;
-            text-decoration: none;
+            border: none;
             padding: 12px;
             border-radius: 25px;
             font-weight: bold;
             font-size: 14px;
             margin-bottom: 10px;
+            cursor: pointer;
             transition: background-color 0.3s;
         }
-        .btn-whatsapp:hover {
-            background-color: #25D366; /* Verde WhatsApp */
-        }
-        /* Icono SVG de WhatsApp */
-        .btn-whatsapp svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-        }
-        
+        .btn-add-cart:hover { background-color: #444; }
         .btn-info {
             background: none;
             border: none;
@@ -220,11 +219,141 @@
             color: #1a1a1a;
             padding: 5px;
         }
-        .btn-info:hover {
-            text-decoration: underline;
+        .btn-info:hover { text-decoration: underline; }
+
+        /* VISTA AUMENTADA (LIGHTBOX) PARA IMÁGENES */
+        .modal-imagen {
+            display: none; 
+            position: fixed; 
+            z-index: 999; 
+            padding-top: 60px; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0,0,0,0.85); /* Fondo oscuro */
+        }
+        .modal-contenido-img {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 85vh;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            animation: zoom 0.3s ease;
+        }
+        @keyframes zoom {
+            from {transform:scale(0.8); opacity: 0;}
+            to {transform:scale(1); opacity: 1;}
+        }
+        .cerrar-modal-img {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .cerrar-modal-img:hover { color: #bbb; }
+
+        /* BOTÓN FLOTANTE WHATSAPP */
+        .float-wa {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            z-index: 90;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s;
+        }
+        .float-wa:hover { transform: scale(1.1); }
+        .float-wa svg { width: 35px; height: 35px; fill: white; }
+
+        /* MENÚ LATERAL DEL CARRITO (MODAL) */
+        .cart-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 200;
+            display: none;
+        }
+        .cart-sidebar {
+            position: fixed;
+            top: 0; right: -400px; width: 400px; height: 100%;
+            background-color: white;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+            z-index: 201;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .cart-sidebar.open { right: 0; }
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+        .cart-header h2 { font-size: 22px; }
+        .close-cart {
+            background: none; border: none; font-size: 24px; cursor: pointer;
+        }
+        .cart-items {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .cart-item-title { font-weight: bold; font-size: 14px; }
+        .cart-item-price { color: #666; }
+        .remove-item { color: red; background: none; border: none; cursor: pointer; font-size: 12px; }
+        .cart-footer {
+            border-top: 2px solid #eee;
+            padding-top: 15px;
+        }
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .btn-checkout-wa {
+            width: 100%;
+            background-color: #25D366;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
         }
 
-        /* FOOTER SIMPLIFICADO */
+        /* FOOTER */
         footer {
             background-color: white;
             margin-top: 50px;
@@ -234,25 +363,24 @@
             font-size: 12px;
             color: #666;
         }
-        
-        .no-results {
-            display: none;
-            text-align: center;
-            grid-column: 1 / -1;
-            padding: 40px;
-            font-size: 18px;
-            color: #666;
+        .no-results { display: none; text-align: center; grid-column: 1 / -1; padding: 40px; font-size: 18px; color: #666; }
+
+        @media (max-width: 768px) {
+            .cart-sidebar { width: 100%; right: -100%; }
+            header { padding: 15px 20px; flex-direction: column; gap: 15px; }
+            .hero h1 { font-size: 30px; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">TuMarca Típica</div>
+        <div class="logo">TuMarca Típica - Chiapas</div>
         <div class="nav-links">
-            <button class="active">Productos</button>
-            <button onclick="alert('Historia de tu emprendimiento: Somos una marca dedicada a enaltecer las raíces mexicanas...')">Sobre nosotros</button>
-            <button class="outline" onclick="alert('¡Comparte este enlace con tus amigos: www.tumarca.com!')">Compartir</button>
+            <button onclick="alert('Historia: Somos una marca dedicada a enaltecer las raíces de Chiapas y el sur de México...')">Sobre nosotros</button>
+            <button class="cart-btn" onclick="toggleCart()">
+                🛒 Carrito <span class="cart-count" id="cart-count">0</span>
+            </button>
         </div>
     </header>
 
@@ -265,7 +393,13 @@
                 <h1>Colores y tradiciones tejidas a mano</h1>
             </div>
             <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=1200&q=80');">
-                <h1>Diseños únicos que cuentan historias</h1>
+                <h1>Diseños únicos de Chiapas que cuentan historias</h1>
+            </div>
+            <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1605763240000-7e93b172d754?auto=format&fit=crop&w=1200&q=80');">
+                <h1>El arte del telar de cintura del sur de México</h1>
+            </div>
+            <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1584949514123-474cb0c1ff06?auto=format&fit=crop&w=1200&q=80');">
+                <h1>Elegancia y textura artesanal para tus eventos</h1>
             </div>
 
             <button class="carousel-btn prev" onclick="cambiarSlide(-1)">&#10094;</button>
@@ -286,94 +420,103 @@
         <section class="products-grid" id="productGrid">
             
             <div class="card" data-category="blusas">
-                <img src="https://images.unsplash.com/photo-1551804938-2a243d7890bc?auto=format&fit=crop&w=300&q=80" alt="Blusa Artesanal">
+                <img src="https://images.unsplash.com/photo-1551804938-2a243d7890bc?auto=format&fit=crop&w=600&q=80" alt="Blusa Bordada" onclick="abrirImagen(this.src)">
                 <h3 class="product-title">Blusa Bordada a Mano - Floral</h3>
                 <p class="price"><small>MXN</small> $550.00</p>
-                <a href="https://wa.me/6331209203?text=Hola,%20me%20interesa%20la%20Blusa%20Floral%20de%20$550" class="btn-whatsapp" target="_blank">
-                    COMPRAR POR 
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
-                </a>
-                <button class="btn-info" onclick="mostrarInfo('Blusa Bordada a Mano', 'Hermosa blusa elaborada en manta 100% algodón, con bordados florales. Talla Unitalla.')">MÁS INFORMACIÓN</button>
+                <button class="btn-add-cart" onclick="agregarAlCarrito('Blusa Bordada a Mano - Floral', 550)">AÑADIR AL CARRITO 🛒</button>
+                <button class="btn-info" onclick="mostrarInfo('Blusa Bordada', 'Manta 100% algodón, bordados florales elaborados por artesanas locales.')">MÁS INFO</button>
             </div>
 
             <div class="card" data-category="huipiles">
-                <img src="https://images.unsplash.com/photo-1605763240000-7e93b172d754?auto=format&fit=crop&w=300&q=80" alt="Huipil de Gala">
-                <h3 class="product-title">Huipil de Gala Oaxaqueño</h3>
+                <img src="https://images.unsplash.com/photo-1605763240000-7e93b172d754?auto=format&fit=crop&w=600&q=80" alt="Huipil" onclick="abrirImagen(this.src)">
+                <h3 class="product-title">Huipil de Gala Zinacantán</h3>
                 <p class="price"><small>MXN</small> $2,500.00</p>
-                <a href="https://wa.me/6331209203?text=Hola,%20me%20interesa%20el%20Huipil%20de%20Gala%20de%20$2500" class="btn-whatsapp" target="_blank">
-                    COMPRAR POR 
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
-                </a>
-                <button class="btn-info" onclick="mostrarInfo('Huipil de Gala', 'Pieza única elaborada en telar de cintura con hilos de seda. Diseño tradicional para eventos especiales.')">MÁS INFORMACIÓN</button>
+                <button class="btn-add-cart" onclick="agregarAlCarrito('Huipil de Gala Zinacantán', 2500)">AÑADIR AL CARRITO 🛒</button>
+                <button class="btn-info" onclick="mostrarInfo('Huipil Zinacantán', 'Elaborado en telar de cintura con hilos de seda. Colores tradicionales vibrantes.')">MÁS INFO</button>
             </div>
 
             <div class="card" data-category="rebozos">
-                <img src="https://images.unsplash.com/photo-1604085572504-a392ddf0d86a?auto=format&fit=crop&w=300&q=80" alt="Rebozo">
+                <img src="https://images.unsplash.com/photo-1604085572504-a392ddf0d86a?auto=format&fit=crop&w=600&q=80" alt="Rebozo" onclick="abrirImagen(this.src)">
                 <h3 class="product-title">Rebozo de Telar Tradicional</h3>
                 <p class="price"><small>MXN</small> $850.00</p>
-                <a href="https://wa.me/6331209203?text=Hola,%20me%20interesa%20el%20Rebozo%20Tradicional%20de%20$850" class="btn-whatsapp" target="_blank">
-                    COMPRAR POR 
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
-                </a>
-                <button class="btn-info" onclick="mostrarInfo('Rebozo de Telar', 'Rebozo con colores firmes, hilos de algodón y seda sintética. Uso diario.')">MÁS INFORMACIÓN</button>
+                <button class="btn-add-cart" onclick="agregarAlCarrito('Rebozo de Telar Tradicional', 850)">AÑADIR AL CARRITO 🛒</button>
+                <button class="btn-info" onclick="mostrarInfo('Rebozo de Telar', 'Colores firmes, hilos de algodón y seda sintética.')">MÁS INFO</button>
             </div>
 
             <div class="card" data-category="vestidos">
-                <img src="https://images.unsplash.com/photo-1595123565011-85eab2cc4dce?auto=format&fit=crop&w=300&q=80" alt="Vestido">
+                <img src="https://images.unsplash.com/photo-1595123565011-85eab2cc4dce?auto=format&fit=crop&w=600&q=80" alt="Vestido" onclick="abrirImagen(this.src)">
                 <h3 class="product-title">Vestido Tipo Huipil Manta</h3>
                 <p class="price"><small>MXN</small> $1,200.00</p>
-                <a href="https://wa.me/6331209203?text=Hola,%20me%20interesa%20el%20Vestido%20Tipo%20Huipil%20de%20$1200" class="btn-whatsapp" target="_blank">
-                    COMPRAR POR 
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
-                </a>
-                <button class="btn-info" onclick="mostrarInfo('Vestido Tipo Huipil', 'Vestido fresco y cómodo. Lavado a mano recomendado.')">MÁS INFORMACIÓN</button>
+                <button class="btn-add-cart" onclick="agregarAlCarrito('Vestido Tipo Huipil Manta', 1200)">AÑADIR AL CARRITO 🛒</button>
+                <button class="btn-info" onclick="mostrarInfo('Vestido Tipo Huipil', 'Fresco, holgado e ideal para climas cálidos de México.')">MÁS INFO</button>
             </div>
 
             <div class="card" data-category="blusas">
-                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=300&q=80" alt="Blusa Campesina">
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80" alt="Blusa Campesina" onclick="abrirImagen(this.src)">
                 <h3 class="product-title">Blusa Campesina Detalles</h3>
                 <p class="price"><small>MXN</small> $450.00</p>
-                <a href="https://wa.me/6331209203?text=Hola,%20me%20interesa%20la%20Blusa%20Campesina%20de%20$450" class="btn-whatsapp" target="_blank">
-                    COMPRAR POR 
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
-                </a>
-                <button class="btn-info" onclick="mostrarInfo('Blusa Campesina', 'Diseño de cuello elástico, manga corta. Muy fresca e ideal para usar con jeans o faldas.')">MÁS INFORMACIÓN</button>
+                <button class="btn-add-cart" onclick="agregarAlCarrito('Blusa Campesina Detalles', 450)">AÑADIR AL CARRITO 🛒</button>
+                <button class="btn-info" onclick="mostrarInfo('Blusa Campesina', 'Diseño de cuello elástico y manga corta. Fresca y cómoda.')">MÁS INFO</button>
             </div>
 
             <div class="card" data-category="vestidos">
-                <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=300&q=80" alt="Vestido Bordado">
-                <h3 class="product-title">Vestido Bordado Chiapaneco</h3>
+                <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=600&q=80" alt="Vestido Chiapaneco" onclick="abrirImagen(this.src)">
+                <h3 class="product-title">Vestido Chiapaneco de Gala</h3>
                 <p class="price"><small>MXN</small> $1,800.00</p>
-                <a href="https://wa.me/6331209203?text=Hola,%20me%20interesa%20el%20Vestido%20Chiapaneco%20de%20$1800" class="btn-whatsapp" target="_blank">
-                    COMPRAR POR 
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
-                </a>
-                <button class="btn-info" onclick="mostrarInfo('Vestido Chiapaneco', 'Vestido de manta negra con espectacular bordado en punto de cruz lleno de colores vivos.')">MÁS INFORMACIÓN</button>
+                <button class="btn-add-cart" onclick="agregarAlCarrito('Vestido Chiapaneco de Gala', 1800)">AÑADIR AL CARRITO 🛒</button>
+                <button class="btn-info" onclick="mostrarInfo('Vestido Chiapaneco', 'Manta negra con bordado espectacular en punto de cruz, colores típicos.')">MÁS INFO</button>
             </div>
 
             <div class="card" data-category="rebozos">
-                <img src="https://images.unsplash.com/photo-1584949514123-474cb0c1ff06?auto=format&fit=crop&w=300&q=80" alt="Rebozo de Seda">
+                <img src="https://images.unsplash.com/photo-1584949514123-474cb0c1ff06?auto=format&fit=crop&w=600&q=80" alt="Rebozo Seda" onclick="abrirImagen(this.src)">
                 <h3 class="product-title">Rebozo Fino de Seda</h3>
                 <p class="price"><small>MXN</small> $1,100.00</p>
-                <a href="https://wa.me/6331209203?text=Hola,%20me%20interesa%20el%20Rebozo%20de%20Seda%20de%20$1100" class="btn-whatsapp" target="_blank">
-                    COMPRAR POR 
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
-                </a>
-                <button class="btn-info" onclick="mostrarInfo('Rebozo de Seda', 'Confeccionado en hilos de seda brillantes y ligeros, con empuntado fino. Especial para vestidos de noche.')">MÁS INFORMACIÓN</button>
+                <button class="btn-add-cart" onclick="agregarAlCarrito('Rebozo Fino de Seda', 1100)">AÑADIR AL CARRITO 🛒</button>
+                <button class="btn-info" onclick="mostrarInfo('Rebozo de Seda', 'Hilos de seda brillantes con empuntado fino. Especial para vestidos elegantes.')">MÁS INFO</button>
             </div>
 
             <div id="noResults" class="no-results">
-                No se encontraron prendas con ese nombre o en esta categoría.
+                No se encontraron prendas con ese nombre.
             </div>
 
         </section>
     </main>
 
+    <div id="visorImagen" class="modal-imagen" onclick="cerrarImagen()">
+        <span class="cerrar-modal-img">&times;</span>
+        <img class="modal-contenido-img" id="imagenAmpliacion">
+    </div>
+
+    <a href="https://wa.me/521234567890?text=Hola,%20tengo%20una%20duda%20sobre%20su%20ropa%20típica" class="float-wa" target="_blank" title="Contáctanos">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
+    </a>
+
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Tu Pedido</h2>
+            <button class="close-cart" onclick="toggleCart()">×</button>
+        </div>
+        <div class="cart-items" id="cartItemsContainer">
+            <p style="color: #666; text-align: center; margin-top: 20px;">Tu carrito está vacío.</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotalText">$0.00 MXN</span>
+            </div>
+            <button class="btn-checkout-wa" onclick="enviarPedidoWhatsApp('521234567890')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
+                Hacer pedido por WhatsApp
+            </button>
+        </div>
+    </div>
+
     <footer>
         <div class="footer-col">
             <p><strong>Formas de pago</strong></p>
             <p>✔ Tarjeta de crédito/débito</p>
-            <p>✔ Transferencia SPEI / Pix</p>
+            <p>✔ Transferencia SPEI</p>
             <p>✔ Efectivo (OXXO)</p>
         </div>
         <div class="footer-col">
@@ -387,7 +530,99 @@
     </footer>
 
     <script>
-        // LÓGICA DEL CARRUSEL
+        // --- 1. LÓGICA DE LA LUPA / VISTA AUMENTADA (NUEVO) ---
+        function abrirImagen(urlImagen) {
+            document.getElementById("visorImagen").style.display = "block";
+            document.getElementById("imagenAmpliacion").src = urlImagen;
+        }
+
+        function cerrarImagen() {
+            document.getElementById("visorImagen").style.display = "none";
+        }
+
+
+        // --- 2. LÓGICA DEL CARRITO DE COMPRAS ---
+        let carrito = [];
+
+        function agregarAlCarrito(nombre, precio) {
+            carrito.push({ nombre: nombre, precio: precio });
+            actualizarCarritoUI();
+            
+            const sidebar = document.getElementById('cartSidebar');
+            if(!sidebar.classList.contains('open')) {
+                toggleCart();
+            }
+        }
+
+        function eliminarDelCarrito(index) {
+            carrito.splice(index, 1);
+            actualizarCarritoUI();
+        }
+
+        function actualizarCarritoUI() {
+            const container = document.getElementById('cartItemsContainer');
+            const totalText = document.getElementById('cartTotalText');
+            const countText = document.getElementById('cart-count');
+            
+            container.innerHTML = ''; 
+            let total = 0;
+
+            if(carrito.length === 0) {
+                container.innerHTML = '<p style="color: #666; text-align: center; margin-top: 20px;">Tu carrito está vacío.</p>';
+            } else {
+                carrito.forEach((producto, index) => {
+                    total += producto.precio;
+                    container.innerHTML += `
+                        <div class="cart-item">
+                            <div>
+                                <div class="cart-item-title">${producto.nombre}</div>
+                                <div class="cart-item-price">$${producto.precio}.00 MXN</div>
+                            </div>
+                            <button class="remove-item" onclick="eliminarDelCarrito(${index})">Eliminar</button>
+                        </div>
+                    `;
+                });
+            }
+
+            totalText.innerText = `$${total}.00 MXN`;
+            countText.innerText = carrito.length;
+        }
+
+        function toggleCart() {
+            const overlay = document.getElementById('cartOverlay');
+            const sidebar = document.getElementById('cartSidebar');
+            
+            if (sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+                overlay.style.display = 'none';
+            } else {
+                sidebar.classList.add('open');
+                overlay.style.display = 'block';
+            }
+        }
+
+        function enviarPedidoWhatsApp(numeroTuyo) {
+            if (carrito.length === 0) {
+                alert("Agrega algunos productos a tu carrito primero.");
+                return;
+            }
+
+            let total = 0;
+            let mensaje = "¡Hola! Me gustaría hacer el siguiente pedido:\n\n";
+            
+            carrito.forEach(prod => {
+                mensaje += `- ${prod.nombre} ($${prod.precio})\n`;
+                total += prod.precio;
+            });
+
+            mensaje += `\n*Total a pagar: $${total} MXN*\n\n¿Me podrías confirmar disponibilidad y métodos de pago?`;
+
+            let url = `https://wa.me/${numeroTuyo}?text=${encodeURIComponent(mensaje)}`;
+            window.open(url, '_blank');
+        }
+
+
+        // --- 3. LÓGICA DEL CARRUSEL ---
         let slideIndex = 0;
         const slides = document.querySelectorAll(".carousel-slide");
 
@@ -397,19 +632,17 @@
             if (n < 0) slideIndex = slides.length - 1;
             slides[slideIndex].classList.add("active");
         }
-
         function cambiarSlide(n) {
             slideIndex += n;
             mostrarSlide(slideIndex);
         }
-
         setInterval(() => {
             slideIndex++;
             mostrarSlide(slideIndex);
-        }, 5000);
+        }, 4000); 
 
 
-        // LÓGICA DE PRODUCTOS
+        // --- 4. LÓGICA DE FILTROS Y BÚSQUEDA ---
         function mostrarInfo(nombre, descripcion) {
             alert("✨ " + nombre + " ✨\n\n" + descripcion);
         }
@@ -433,14 +666,12 @@
                     
                     const category = button.getAttribute('data-filter');
                     const searchTerm = searchInput.value.toLowerCase();
-                    
                     filtrarProductos(searchTerm, category);
                 });
             });
 
             function filtrarProductos(searchTerm, category) {
                 let productosVisibles = 0;
-
                 productCards.forEach(card => {
                     const title = card.querySelector('.product-title').textContent.toLowerCase();
                     const cardCategory = card.getAttribute('data-category');
