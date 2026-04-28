@@ -25,6 +25,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            z-index: 10;
         }
         .logo {
             font-size: 20px;
@@ -47,24 +49,70 @@
             border-color: white;
         }
 
-        /* SECCIÓN PRINCIPAL (HERO) */
-        .hero {
-            background-image: url('https://images.unsplash.com/photo-1583391733959-b0078028a7e0?auto=format&fit=crop&w=1200&q=80'); 
+        /* --- NUEVO: CARRUSEL DE ENCABEZADO --- */
+        .carousel-container {
+            position: relative;
+            height: 400px; /* Altura del carrusel */
+            width: 100%;
+            overflow: hidden;
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background-size: cover;
             background-position: center;
-            height: 350px;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out; /* Efecto suave al cambiar */
             display: flex;
             align-items: center;
             padding: 0 50px;
+            /* Agregamos un fondo oscuro transparente para que las letras blancas resalten siempre */
+            box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.4);
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        .carousel-slide h1 {
             color: white;
-            border-radius: 0 0 30px 30px;
-            margin-bottom: 30px;
+            font-size: 45px;
+            max-width: 500px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            line-height: 1.2;
         }
-        .hero h1 {
-            font-size: 40px;
-            max-width: 400px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+
+        /* Botones del carrusel */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.3);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 2;
+            transition: background-color 0.3s;
         }
+        .carousel-btn:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: black;
+        }
+        .carousel-btn.prev { left: 20px; }
+        .carousel-btn.next { right: 20px; }
+
 
         /* BUSCADOR Y CATEGORÍAS */
         .filters-section {
@@ -154,7 +202,7 @@
             transition: background-color 0.3s;
         }
         .btn-whatsapp:hover {
-            background-color: #25D366; /* Verde WhatsApp */
+            background-color: #25D366;
         }
         .btn-info {
             background: none;
@@ -180,7 +228,6 @@
             color: #666;
         }
         
-        /* Mensaje cuando no hay resultados */
         .no-results {
             display: none;
             text-align: center;
@@ -203,8 +250,19 @@
     </header>
 
     <main>
-        <section class="hero">
-            <h1>Lleva el orgullo de nuestras raíces en tu día a día</h1>
+        <section class="carousel-container">
+            <div class="carousel-slide active" style="background-image: url('https://images.unsplash.com/photo-1584347783935-8126e7a17407?auto=format&fit=crop&w=1200&q=80');">
+                <h1>Lleva el orgullo de nuestras raíces en tu día a día</h1>
+            </div>
+            <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?auto=format&fit=crop&w=1200&q=80');">
+                <h1>Colores y tradiciones tejidas a mano</h1>
+            </div>
+            <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=1200&q=80');">
+                <h1>Diseños únicos que cuentan historias</h1>
+            </div>
+
+            <button class="carousel-btn prev" onclick="cambiarSlide(-1)">&#10094;</button>
+            <button class="carousel-btn next" onclick="cambiarSlide(1)">&#10095;</button>
         </section>
 
         <section class="filters-section">
@@ -223,7 +281,6 @@
                 <img src="https://images.unsplash.com/photo-1551804938-2a243d7890bc?auto=format&fit=crop&w=300&q=80" alt="Blusa Artesanal">
                 <h3 class="product-title">Blusa Bordada a Mano - Floral</h3>
                 <p class="price"><small>MXN</small> $550.00</p>
-                
                 <a href="https://wa.me/6331209203?text=Hola,%20me%20interesa%20comprar%20la%20Blusa%20Bordada%20a%20Mano%20Floral%20de%20$550" class="btn-whatsapp" target="_blank">
                     COMPRAR POR 💬
                 </a>
@@ -234,7 +291,6 @@
                 <img src="https://images.unsplash.com/photo-1604085572504-a392ddf0d86a?auto=format&fit=crop&w=300&q=80" alt="Rebozo">
                 <h3 class="product-title">Rebozo de Telar Tradicional</h3>
                 <p class="price"><small>MXN</small> $850.00</p>
-                
                 <a href="https://wa.me/6331209203?text=Hola,%20me%20interesa%20el%20Rebozo%20de%20Telar%20de%20$850" class="btn-whatsapp" target="_blank">
                     COMPRAR POR 💬
                 </a>
@@ -245,7 +301,6 @@
                 <img src="https://images.unsplash.com/photo-1595123565011-85eab2cc4dce?auto=format&fit=crop&w=300&q=80" alt="Vestido">
                 <h3 class="product-title">Vestido Tipo Huipil Algodón</h3>
                 <p class="price"><small>MXN</small> $1,200.00</p>
-                
                 <a href="https://wa.me/6331209203?text=Hola,%20me%20interesa%20el%20Vestido%20Típico%20de%20$1200" class="btn-whatsapp" target="_blank">
                     COMPRAR POR 💬
                 </a>
@@ -277,31 +332,55 @@
     </footer>
 
     <script>
-        // Función para mostrar la información del producto
+        // --- LÓGICA DEL CARRUSEL ---
+        let slideIndex = 0;
+        const slides = document.querySelectorAll(".carousel-slide");
+
+        function mostrarSlide(n) {
+            // Ocultar todas
+            slides.forEach(slide => slide.classList.remove("active"));
+            
+            // Ajustar el índice si nos pasamos
+            if (n >= slides.length) slideIndex = 0;
+            if (n < 0) slideIndex = slides.length - 1;
+            
+            // Mostrar la actual
+            slides[slideIndex].classList.add("active");
+        }
+
+        // Función para los botones prev/next
+        function cambiarSlide(n) {
+            slideIndex += n;
+            mostrarSlide(slideIndex);
+        }
+
+        // Cambio automático cada 5 segundos (5000 milisegundos)
+        setInterval(() => {
+            slideIndex++;
+            mostrarSlide(slideIndex);
+        }, 5000);
+
+
+        // --- LÓGICA DE PRODUCTOS (Filtros, Búsqueda, Alertas) ---
         function mostrarInfo(nombre, descripcion) {
             alert("✨ " + nombre + " ✨\n\n" + descripcion);
         }
 
-        // Esperar a que la página cargue para activar los filtros
         document.addEventListener('DOMContentLoaded', () => {
             const searchInput = document.getElementById('searchInput');
             const categoryButtons = document.querySelectorAll('.categories button');
             const productCards = document.querySelectorAll('.card');
             const noResultsMessage = document.getElementById('noResults');
 
-            // 1. Funcionalidad de la Barra de Búsqueda
             searchInput.addEventListener('input', (e) => {
                 const term = e.target.value.toLowerCase();
                 const activeCategory = document.querySelector('.categories button.active').getAttribute('data-filter');
                 filtrarProductos(term, activeCategory);
             });
 
-            // 2. Funcionalidad de los Botones de Categoría
             categoryButtons.forEach(button => {
                 button.addEventListener('click', () => {
-                    // Quitar el color negro (active) a todos los botones
                     categoryButtons.forEach(btn => btn.classList.remove('active'));
-                    // Ponérselo solo al botón que presionamos
                     button.classList.add('active');
                     
                     const category = button.getAttribute('data-filter');
@@ -311,7 +390,6 @@
                 });
             });
 
-            // Función principal que hace el filtrado
             function filtrarProductos(searchTerm, category) {
                 let productosVisibles = 0;
 
@@ -319,7 +397,6 @@
                     const title = card.querySelector('.product-title').textContent.toLowerCase();
                     const cardCategory = card.getAttribute('data-category');
                     
-                    // Comprobar si el texto coincide y si la categoría coincide
                     const matchesSearch = title.includes(searchTerm);
                     const matchesCategory = category === 'todos' || cardCategory === category;
 
@@ -331,7 +408,6 @@
                     }
                 });
 
-                // Mostrar mensaje si no hay resultados
                 if (productosVisibles === 0) {
                     noResultsMessage.style.display = 'block';
                 } else {
