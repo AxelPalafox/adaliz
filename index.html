@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tu Marca - Ropa Típica de Chiapas</title>
+    <title>Riconsito de Chiapas</title>
+    <link rel="icon" href="Riconsito de Chiapas sf.png">
     <style>
         /* ESTILOS GENERALES */
         * {
@@ -19,7 +20,7 @@
 
         /* BARRA DE NAVEGACIÓN */
         header {
-            background-color: #1a1a1a;
+            background: linear-gradient(#f527be, #f2e1ee);
             color: white;
             padding: 15px 50px;
             display: flex;
@@ -73,7 +74,7 @@
             height: 450px;
             width: 100%;
             overflow: hidden;
-            border-radius: 0 0 30px 30px;
+            border-radius: 0 0 0 0;
             margin-bottom: 40px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
@@ -350,10 +351,12 @@
         .btn-checkout-wa {
             width: 100%; background-color: #25D366; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; font-size: 16px; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px;
         }
-
+        .tex{
+            text-align: center;
+        }
         /* FOOTER */
         footer {
-            background-color: white; margin-top: 50px; padding: 40px 50px; display: flex; justify-content: space-between; font-size: 12px; color: #666;
+            background: linear-gradient(#f2e1ee, #f2e1ee, #f527be); margin-top: 50px; padding: 40px 50px; display: flex; justify-content: space-between; font-size: 12px; color: #666;
         }
         .no-results { display: none; text-align: center; grid-column: 1 / -1; padding: 40px; font-size: 18px; color: #666; }
 
@@ -362,7 +365,8 @@
 <body>
 
     <header>
-        <div class="logo">TuMarca Típica - Chiapas</div>
+        <div class="logo"><img src="Riconsito de Chiapas sf.png" width="110px" height="110px"></div>
+        <div class="tex"><h3>Riconsito de Chiapas</h3></div>
         <div class="nav-links">
             <button onclick="abrirCajaInfo('Sobre nosotros', 'Somos una marca dedicada a enaltecer las raíces de Chiapas y el sur de México. Trabajamos directamente con artesanas locales para llevar la magia del telar y el bordado a tu día a día.')">Sobre nosotros</button>
             <button class="outline" onclick="abrirCajaInfo('Compartir', '¡Ayúdanos a crecer! Copia este enlace y compártelo con tus amigos: www.tumarca.com')">Compartir</button>
