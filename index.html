@@ -364,7 +364,90 @@
             background-color: #f3e0c0; margin-top: 50px; padding: 40px 50px; display: flex; justify-content: space-between; font-size: 12px; color: #666;
         }
         .no-results { display: none; text-align: center; grid-column: 1 / -1; padding: 40px; font-size: 18px; color: #666; }
-
+            /* =========================================
+             ESTO ES NUEVO: VISTA CELULAR (RESPONSIVO)
+             ========================================= */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            .nav-links button {
+                margin-left: 0;
+                font-size: 14px;
+                padding: 6px 12px;
+            }
+            
+            .carousel-container {
+                height: 250px; /* Carrusel más pequeño para que no ocupe todo el teléfono */
+            }
+            .carousel-slide {
+                padding: 0 20px;
+            }
+            .carousel-slide h1 {
+                font-size: 24px;
+            }
+            
+            .filters-section .search-bar {
+                width: 90%;
+            }
+            .categories {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            .categories button {
+                margin: 0;
+            }
+            
+            .products-grid {
+                padding: 0 20px;
+                grid-template-columns: 1fr; /* Una sola columna en teléfonos */
+            }
+            .card img {
+                height: auto;
+                max-height: 350px;
+            }
+            
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+            
+            .info-contenido {
+                margin: 30% auto;
+                width: 95%;
+                padding: 20px;
+            }
+            
+            footer {
+                flex-direction: column;
+                gap: 20px;
+                padding: 30px 20px;
+                text-align: center;
+            }
+            .footer-col {
+                margin-bottom: 10px;
+            }
+            
+            .float-wa {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+            }
+            .float-wa svg {
+                width: 30px;
+                height: 30px;
+            }
+        }
     </style>
 </head>
 <body>
